@@ -50,6 +50,7 @@ jobs:
           files: |
             ./easyfrps/dist/*.tar.gz
             ./easyfrps/dist/*.zip
+          token: ${{ secrets.TOKEN }}
 
       - name: Docker buildx
         run: |
@@ -119,6 +120,7 @@ jobs:
           files: |
             ./easyfrpc/dist/*.tar.gz
             ./easyfrpc/dist/*.zip
+          token: ${{ secrets.TOKEN }}
 
       - name: Docker buildx
         run: |
@@ -188,6 +190,7 @@ jobs:
           files: |
             ./backend/dist/*.tar.gz
             ./backend/dist/*.zip
+          token: ${{ secrets.TOKEN }}
 
       - name: Docker buildx
         run: |
