@@ -42,7 +42,7 @@ jobs:
           workdir: ./easyfrps
 
       - name: Upload release
-        uses: softprops/action-gh-release@da05d552573ad5aba039eaac05058a918a7bf631
+        uses: softprops/action-gh-release@v6
         with:
           files: |
             ./easyfrps/dist/*.tar.gz
@@ -111,7 +111,7 @@ jobs:
           workdir: ./easyfrpc
 
       - name: Upload release
-        uses: softprops/action-gh-release@da05d552573ad5aba039eaac05058a918a7bf631
+        uses: softprops/action-gh-release@v6
         with:
           files: |
             ./easyfrpc/dist/*.tar.gz
@@ -180,7 +180,7 @@ jobs:
           workdir: ./backend
 
       - name: Upload release
-        uses: softprops/action-gh-release@da05d552573ad5aba039eaac05058a918a7bf631
+        uses: softprops/action-gh-release@v6
         with:
           files: |
             ./backend/dist/*.tar.gz
