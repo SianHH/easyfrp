@@ -56,7 +56,7 @@ jobs:
         run: |
           cd easyfrps
           docker buildx create --name easyfrps-builder --use
-          docker buildx build --platform linux/amd64,linux/arm64 -t sianhh/easyfrps:latest -t sianhh/easyfrps:${{ env.DOCKER_TAG }} --push .
+          docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7,linux/386 -t sianhh/easyfrps:latest -t sianhh/easyfrps:${{ env.DOCKER_TAG }} --push .
           docker buildx rm easyfrps-builder
 
       - name: Copy tar.gz files
@@ -126,7 +126,7 @@ jobs:
         run: |
           cd easyfrpc
           docker buildx create --name easyfrpc-builder --use
-          docker buildx build --platform linux/amd64,linux/arm64 -t sianhh/easyfrpc:latest -t sianhh/easyfrpc:${{ env.DOCKER_TAG }} --push .
+          docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7,linux/386 -t sianhh/easyfrpc:latest -t sianhh/easyfrpc:${{ env.DOCKER_TAG }} --push .
           docker buildx rm easyfrpc-builder
 
       - name: Copy tar.gz files
@@ -196,7 +196,7 @@ jobs:
         run: |
           cd backend
           docker buildx create --name easyfrp-admin-builder --use
-          docker buildx build --platform linux/amd64,linux/arm64 -t sianhh/easyfrp-admin:latest -t sianhh/easyfrp-admin:${{ env.DOCKER_TAG }} --push .
+          docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7,linux/386 -t sianhh/easyfrp-admin:latest -t sianhh/easyfrp-admin:${{ env.DOCKER_TAG }} --push .
           docker buildx rm easyfrp-admin-builder
 
       - name: Copy tar.gz files
