@@ -14,6 +14,7 @@ jobs:
         with:
           repository: 'sian/easyfrp'
           github-server-url: 'https://git.xsian.top'
+          ref: 'master' 
           token: ${{ secrets.GITEA_TOKEN }}
 
       - name: Extract Tag
@@ -62,6 +63,7 @@ jobs:
         with:
           repository: 'sian/easyfrp'
           github-server-url: 'https://git.xsian.top'
+          ref: 'master' 
           token: ${{ secrets.GITEA_TOKEN }}
 
       - name: Extract Tag
