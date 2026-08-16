@@ -55,6 +55,26 @@ jobs:
           docker buildx build --platform linux/amd64,linux/arm64 -t sianhh/easyfrps:latest -t sianhh/easyfrps:${{ env.DOCKER_TAG }} --push .
           docker buildx rm easyfrps-builder
 
+      - name: Copy tar.gz files
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          source: "easyfrps/dist/*.tar.gz"
+          target: "/mnt/files/direct/easyfrp"
+          strip_components: 2
+
+      - name: Copy zip files
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          source: "easyfrps/dist/*.zip"
+          target: "/mnt/files/direct/easyfrp"
+          strip_components: 2
+
   easyfrpc:
     runs-on: ubuntu-latest
     steps:
@@ -103,3 +123,23 @@ jobs:
           docker buildx create --name easyfrpc-builder --use
           docker buildx build --platform linux/amd64,linux/arm64 -t sianhh/easyfrpc:latest -t sianhh/easyfrpc:${{ env.DOCKER_TAG }} --push .
           docker buildx rm easyfrpc-builder
+
+      - name: Copy tar.gz files
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          source: "easyfrpc/dist/*.tar.gz"
+          target: "/mnt/files/direct/easyfrp"
+          strip_components: 2
+
+      - name: Copy zip files
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          source: "easyfrpc/dist/*.zip"
+          target: "/mnt/files/direct/easyfrp"
+          strip_components: 2
