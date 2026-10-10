@@ -1,4 +1,4 @@
-name: BuildEasyFrp
+name: Build
 
 on:
   push:
@@ -216,5 +216,62 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           source: "backend/dist/*.zip"
+          target: "/mnt/files/direct/easyfrp"
+          strip_components: 2
+
+  easyfrpc-webui:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          repository: 'sian/easyfrp'
+          github-server-url: 'https://git.xsian.top'
+          ref: 'master'
+          token: ${{ secrets.GITEA_TOKEN }}
+
+      - name: Extract Tag
+        id: extract_tag
+        run: |
+          TAG_NAME=$(echo ${{ github.ref }} | sed 's/refs\/tags\/v//')
+          echo "DOCKER_TAG=$TAG_NAME" >> $GITHUB_ENV
+
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '1.26'
+
+      - name: Build
+        uses: goreleaser/goreleaser-action@v4
+        with:
+          distribution: goreleaser
+          version: latest
+          args: release --snapshot --clean --timeout 300m --parallelism=4
+          workdir: ./easyfrpc/webui
+
+      - name: Upload release
+        uses: softprops/action-gh-release@v3
+        with:
+          files: |
+            ./easyfrpc/webui/dist/*.tar.gz
+            ./easyfrpc/webui/dist/*.zip
+          token: ${{ secrets.TOKEN }}
+
+      - name: Copy tar.gz files
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          source: "easyfrpc/webui/dist/*.tar.gz"
+          target: "/mnt/files/direct/easyfrp"
+          strip_components: 2
+
+      - name: Copy zip files
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          source: "easyfrpc/webui/dist/*.zip"
           target: "/mnt/files/direct/easyfrp"
           strip_components: 2
