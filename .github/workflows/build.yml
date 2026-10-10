@@ -264,7 +264,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           source: "easyfrpc/webui/dist/*.tar.gz"
           target: "/mnt/files/direct/easyfrp"
-          strip_components: 2
+          strip_components: 3
 
       - name: Copy zip files
         uses: appleboy/scp-action@v1
@@ -274,4 +274,4 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           source: "easyfrpc/webui/dist/*.zip"
           target: "/mnt/files/direct/easyfrp"
-          strip_components: 2
+          strip_components: 3
